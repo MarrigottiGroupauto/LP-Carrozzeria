@@ -1,0 +1,23 @@
+{
+  "name": "lp-carrozzeria",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarrigottiGroupauto/LP-Carrozzeria.git"
+  },
+  "author": "Mattia Arrigotti",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MarrigottiGroupauto/LP-Carrozzeria/issues"
+  },
+  "homepage": "https://github.com/MarrigottiGroupauto/LP-Carrozzeria#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
