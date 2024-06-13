@@ -25,7 +25,7 @@ async function uploadFile(file_data) {
     console.log("d<asd");
 
     try {
-        const imageData = await fetch(`http://localhost:3000/upload?name=${file_name}&id=${SESSION_ID}`, {
+        const imageData = await fetch(`/upload?name=${file_name}&id=${SESSION_ID}`, {
             method: "POST",
             headers: {
                 "Content-Type": "multipart/form-data",
@@ -50,7 +50,7 @@ upload_button.onclick = () => {
 
 analyze_button.onclick = async () => {
     try {
-        const imageData = await fetch(`http://localhost:3000/analyze?id=${SESSION_ID}`, {
+        const imageData = await fetch(`/analyze?id=${SESSION_ID}`, {
             method: "GET"
         });
     } catch (err) {
