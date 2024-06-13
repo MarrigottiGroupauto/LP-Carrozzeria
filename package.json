@@ -1,8 +1,18 @@
 {
-  "name": "lp-carrozzeria",
+  "name": "ai-pdf-parser",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
+  "dependencies": {
+    "argparse": "^1.0.10",
+    "axios-retry": "^4.4.0",
+    "esprima": "^4.0.1",
+    "express": "^4.19.2",
+    "is-retry-allowed": "^2.2.0",
+    "js-yaml": "^3.14.1",
+    "sprintf-js": "^1.0.3",
+    "xmlbuilder2": "^3.1.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,11 +25,5 @@
   "bugs": {
     "url": "https://github.com/MarrigottiGroupauto/LP-Carrozzeria/issues"
   },
-  "homepage": "https://github.com/MarrigottiGroupauto/LP-Carrozzeria#readme",
-  "dependencies": {
-    "@azure-rest/ai-document-intelligence": "^1.0.0-beta.2",
-    "axios": "^1.7.2",
-    "dotenv": "^10.0.0",
-    "express": "^4.19.2"
-  }
+  "homepage": "https://github.com/MarrigottiGroupauto/LP-Carrozzeria#readme"
 }

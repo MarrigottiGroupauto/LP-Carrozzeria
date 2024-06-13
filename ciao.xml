@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<pratiche>
+  <pratica IdCliente="GA0533" StatoPratica="CHIUSA" StatoGestionePratica=""
+    NoteStatoGestionePratica="" Pratica_Numero="7435342" Pratica_Numero_Autorizzazione="LPX7435342"
+    Pratica_Data_Autorizzazione="27/05/2024" num_pratiche_aut="" Fornitore=""
+    Fornitore_PartitaIVA="" Fornitore_Gruppo="" Fornitore_indirizzo="" Fornitore_ncivico=""
+    Fornitore_citta="" Fornitore_cap="" Fornitore_pv="" Fornitore_Iban="" Fornitore_swcode=""
+    Veicolo_Targa="GP677MT" Veicolo_Marca="FORD" Veicolo_Modello="Transit Connect"
+    Veicolo_Versione="" Veicolo_Telaio="WF0RXXWPGRPK46139" Fornitore_NumeroFattura=""
+    Fornitore_DataFattura="" Fornitore_FatturaImponibile="" Fornitore_FatturaTotale=""
+    Fornitore_iva="" cod_GA="" chilometri="8510" Ric_Off="">
+    <ricambi>
+      <ricambio categorico="1908558" Ric-Servizio_PrezzoNetto="101.22" Ric-Servizio_Sconto="10.00"
+        Ric-Servizio_PrezzoListino="112.47" Ric-Servizio_Quantita="1.00"
+        cod_famiglia_servizio_oeam="" Ric-Servizio_Descrizione="Paraurti post. lat. parte sup. Sx"
+        Ric-Servizio_Categorico="1908558" Ric-Servizio_idmarca="" Ric-Servizio_Marca="" />
+      <ricambio categorico="2374035" Ric-Servizio_PrezzoNetto="199.86" Ric-Servizio_Sconto="10.00"
+        Ric-Servizio_PrezzoListino="222.07" Ric-Servizio_Quantita="1.00"
+        cod_famiglia_servizio_oeam="" Ric-Servizio_Descrizione="Paraurti post."
+        Ric-Servizio_Categorico="2374035" Ric-Servizio_idmarca="" Ric-Servizio_Marca="" />
+      <ricambio categorico="2542084" Ric-Servizio_PrezzoNetto="21.07" Ric-Servizio_Sconto="10.00"
+        Ric-Servizio_PrezzoListino="23.41" Ric-Servizio_Quantita="1.00"
+        cod_famiglia_servizio_oeam=""
+        Ric-Servizio_Descrizione="Staffa lat. paraurti post. ~ Staffa lat"
+        Ric-Servizio_Categorico="2542084" Ric-Servizio_idmarca="" Ric-Servizio_Marca="" />
+      <ricambio categorico="2542088" Ric-Servizio_PrezzoNetto="21.07" Ric-Servizio_Sconto="10.00"
+        Ric-Servizio_PrezzoListino="23.41" Ric-Servizio_Quantita="1.00"
+        cod_famiglia_servizio_oeam=""
+        Ric-Servizio_Descrizione="Staffa lat. paraurti post. ~ Staffa lat"
+        Ric-Servizio_Categorico="2542088" Ric-Servizio_idmarca="" Ric-Servizio_Marca="" />
+      <ricambio categorico="#SR#" Ric-Servizio_PrezzoNetto="13.29" Ric-Servizio_Sconto="0"
+        Ric-Servizio_PrezzoListino="13.29" Ric-Servizio_Quantita="1.00"
+        cod_famiglia_servizio_oeam=""
+        Ric-Servizio_Descrizione="Smalt.Rifiuti (1,80%) su Ric.+SR+LA+VE"
+        Ric-Servizio_Categorico="#SR#" Ric-Servizio_idmarca="" Ric-Servizio_Marca="" />
+      <ricambio categorico="#MC#" Ric-Servizio_PrezzoNetto="110.70" Ric-Servizio_Sconto="0"
+        Ric-Servizio_PrezzoListino="110.70" Ric-Servizio_Quantita="1.00"
+        cod_famiglia_servizio_oeam="" Ric-Servizio_Descrizione="Materiale di consumo"
+        Ric-Servizio_Categorico="#MC#" Ric-Servizio_idmarca="" Ric-Servizio_Marca="" />
+      <ricambio categorico="#MAN#" Ric-Servizio_PrezzoNetto="394.88" Ric-Servizio_Sconto="0"
+        Ric-Servizio_PrezzoListino="394.88" Ric-Servizio_Quantita="12.15"
+        cod_famiglia_servizio_oeam="" Ric-Servizio_Descrizione="manodopera"
+        Ric-Servizio_Categorico="#MAN#" Ric-Servizio_idmarca="" Ric-Servizio_Marca="" />
+    </ricambi>
+  </pratica>
+</pratiche>
