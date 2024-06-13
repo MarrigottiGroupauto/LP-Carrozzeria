@@ -60,10 +60,6 @@ exports.createXML = (name, data) => {
             sconto = 0;
         }
 
-        console.log(ric);
-        console.log(ric.quantita.content);
-        console.log("------------");
-
         listinoStr = ((netto / (100 - sconto)) * 100).toFixed(2).toString();
 
         xmlObj.pratiche.pratica.ricambi.ricambio.push({
@@ -84,7 +80,7 @@ exports.createXML = (name, data) => {
     const doc = create(xmlObj);
     const xml = doc.end({ prettyPrint: true }); // Pretty print the XML
 
-    const filePath = path.join(__dirname, `${name}.xml`);
+    const filePath = path.join(__dirname, `output_xml/${name}.xml`);
     fs.writeFileSync(filePath, xml, 'utf8');
 
     return xml;

@@ -1,5 +1,9 @@
+const path = require("path");
+const fs = require("fs");
+var Client = require('ftp');
+const { hostname } = require("os");
 
-function cleanData(data) {
+exports.cleanData = (data) => {
     cleanedData = data.analyzeResult.documents[0].fields;
     for (obj in cleanedData) {
         delete cleanedData[obj].boundingRegions;
@@ -27,8 +31,7 @@ function cleanData(data) {
 
     if (cleanedData.manodopera_carrozzeria_prezzo.valueNumber !==
         cleanedData.manodopera_meccanica_prezzo.valueNumber) {
-        console.log("No");
-        return "no";
+        throw new Error("prezzi manodopere mismatchano")
     }
 
     if (cleanedData.manodopera_meccanica_ore.content == undefined) cleanedData.manodopera_meccanica_ore.valueNumber = 0;
@@ -99,7 +102,24 @@ function cleanData(data) {
         cleanedData.ricambi.valueArray.push(ricRow_mc)
     }
 
-    cleanedData.ricambi.valueArray.push(ricRow_man)
+    try {
+        cleanedData.ricambi.valueArray.push(ricRow_man)
+    } catch (error) {
+        throw error;
+    }
 
     return cleanedData
+}
+
+exports.sendOnFTP = (file_path) => {
+
+    var c = new Client({ hostname: "151.0.189.41", user: "iasprogaia", password: "GaIa2020" });
+    c.on('ready', function () {
+        c.put(file_path, path.basename(file_path), function (err) {
+            if (err) throw err;
+            c.end();
+        });
+    });
+    // connect to localhost:21 as anonymous
+    c.connect();
 }

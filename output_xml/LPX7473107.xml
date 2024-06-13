@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<pratiche>
+  <pratica IdCliente="GA0533" StatoPratica="CHIUSA" StatoGestionePratica="" NoteStatoGestionePratica="" Pratica_Numero="7473107" Pratica_Numero_Autorizzazione="LPX7473107" Pratica_Data_Autorizzazione="14/05/2024" num_pratiche_aut="" Fornitore="" Fornitore_PartitaIVA="" Fornitore_Gruppo="" Fornitore_indirizzo="" Fornitore_ncivico="" Fornitore_citta="" Fornitore_cap="" Fornitore_pv="" Fornitore_Iban="" Fornitore_swcode="" Veicolo_Targa="FZ755SX" Veicolo_Marca="DS" Veicolo_Modello="DS7 Crossback" Veicolo_Versione="" Veicolo_Telaio="VR1JCYHZRKY219781" Fornitore_NumeroFattura="" Fornitore_DataFattura="" Fornitore_FatturaImponibile="" Fornitore_FatturaTotale="" Fornitore_iva="" cod_GA="" chilometri="114957" Ric_Off="">
+    <ricambi>
+      <ricambio categorico="#GE#215792" Ric-Servizio_PrezzoNetto="90.00" Ric-Servizio_Sconto="0" Ric-Servizio_PrezzoListino="90.00" Ric-Servizio_Quantita="1.00" cod_famiglia_servizio_oeam="" Ric-Servizio_Descrizione="Camera frontale" Ric-Servizio_Categorico="#GE#215792" Ric-Servizio_idmarca="" Ric-Servizio_Marca=""/>
+      <ricambio categorico="2762AGRCIMVZ" Ric-Servizio_PrezzoNetto="370.00" Ric-Servizio_Sconto="35.00" Ric-Servizio_PrezzoListino="569.23" Ric-Servizio_Quantita="1.00" cod_famiglia_servizio_oeam="" Ric-Servizio_Descrizione="Parabrezza" Ric-Servizio_Categorico="2762AGRCIMVZ" Ric-Servizio_idmarca="" Ric-Servizio_Marca=""/>
+      <ricambio categorico="00000C151" Ric-Servizio_PrezzoNetto="19.50" Ric-Servizio_Sconto="35.00" Ric-Servizio_PrezzoListino="30.00" Ric-Servizio_Quantita="1.00" cod_famiglia_servizio_oeam="" Ric-Servizio_Descrizione="Kit incollaggio parabrezza" Ric-Servizio_Categorico="00000C151" Ric-Servizio_idmarca="" Ric-Servizio_Marca=""/>
+      <ricambio categorico="#SR#" Ric-Servizio_PrezzoNetto="11.43" Ric-Servizio_Sconto="0" Ric-Servizio_PrezzoListino="11.43" Ric-Servizio_Quantita="1.00" cod_famiglia_servizio_oeam="" Ric-Servizio_Descrizione="Smalt.Rifiuti (1,80%) su Ric.+SR+LA+VE" Ric-Servizio_Categorico="#SR#" Ric-Servizio_idmarca="" Ric-Servizio_Marca=""/>
+      <ricambio categorico="#MAN#" Ric-Servizio_PrezzoNetto="155.25" Ric-Servizio_Sconto="0" Ric-Servizio_PrezzoListino="155.25" Ric-Servizio_Quantita="4.5" cod_famiglia_servizio_oeam="" Ric-Servizio_Descrizione="manodopera" Ric-Servizio_Categorico="#MAN#" Ric-Servizio_idmarca="" Ric-Servizio_Marca=""/>
+    </ricambi>
+  </pratica>
+</pratiche>

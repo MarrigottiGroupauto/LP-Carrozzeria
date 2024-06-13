@@ -8,6 +8,7 @@
     "axios-retry": "^4.4.0",
     "esprima": "^4.0.1",
     "express": "^4.19.2",
+    "ftp": "^0.3.10",
     "is-retry-allowed": "^2.2.0",
     "js-yaml": "^3.14.1",
     "sprintf-js": "^1.0.3",
