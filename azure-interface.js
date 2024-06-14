@@ -2,7 +2,7 @@ const path = require("path")
 const fs = require("fs")
 const axios = require('axios');
 
-const { cleanData, sendOnFTP, isDone } = require("./data-management");
+const { cleanData, uploadToFTP, isDone } = require("./data-management");
 const { createXML } = require("./xml-constructor")
 
 const key = "b1af733907eb45a3a9bf606d7834a5dd";
@@ -54,6 +54,8 @@ exports.analyzeSingle = (file_name, id) => {
                     if (isDone(cleanedData.numero_autorizzazione.content)) { throw new Error("Pratica già esportata") }
 
                     createXML(cleanedData.numero_autorizzazione.content, cleanedData);
+                    uploadToFTP(`${cleanedData.numero_autorizzazione.content}.xml`);
+
                     resolve()
                 } catch (error) {
                     console.error(error)
@@ -96,31 +98,28 @@ exports.analyze = (files, id) => {
 
     return new Promise((resolve, reject) => {
 
-        files.forEach(file => {
+        if (files.length == 0) { resolve(); return; }
 
-            try {
-                exports.analyzeSingle(file, id).then(_ => {
-                    fs.rename(path.join(__dirname, `uploads/${id}/${file}`), path.join(__dirname, `archive/${file}`), err => {
-                        if (err) console.log(err);
-                        // sendOnFTP(path.join(__dirname, `archive/${file}`));
-                        console.log("chiamata -> fulfillata");
-                        resolve()
-                    });
-                }).catch(err => {
-                    console.log("error" + err);
+        let file = files.pop();
 
-                    fs.rename(path.join(__dirname, `uploads/${id}/${file}`),
-                        path.join(__dirname, `errors/${file}`),
-                        a => { console.log(file + " messo nella cartella 'errore'") }
-                    );
+        exports.analyzeSingle(file, id).then(_ => {
+            fs.rename(path.join(__dirname, `uploads/${id}/${file}`), path.join(__dirname, `archive/${file}`), err => {
+                if (err) console.log(err);
+                console.log("chiamata -> fulfillata");
 
-                    reject();
-                });
+                return exports.analyze(files, id);
+            });
+        }).catch(err => {
+            console.log("error" + err);
 
-            } catch (error) {
+            fs.rename(path.join(__dirname, `uploads/${id}/${file}`),
+                path.join(__dirname, `errors/${file}`),
+                a => { console.log(file + " messo nella cartella 'errore'") }
+            );
 
-            }
+            reject();
         });
+
     });
 
 }

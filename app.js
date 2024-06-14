@@ -46,7 +46,7 @@ app.post("/upload", async (req, res) => {
         );
     });
 
-    res.sendStatus(202)
+    res.sendStatus(202);
 });
 
 /** -------- GET DATA FETCHER ------- */
@@ -63,8 +63,6 @@ app.get('/analyze', (req, res) => {
             res.sendStatus("202");
         });
     });
-
-
 });
 
 app.get('/elaborated-aut', (req, res) => {

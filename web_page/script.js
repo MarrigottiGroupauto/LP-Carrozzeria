@@ -39,6 +39,9 @@ async function updateFile(e) {
             `<p> ${files[i].name}</p>`
     });
 
+    upload_button.innerHTML = "CARICA";
+    upload_button.classList.remove("fullfilled");
+    upload_button.disabled = false;
     data = formData;
 }
 
@@ -55,6 +58,10 @@ async function uploadFile(file_data) {
             body: file_data,
         }).then(_ => {
             analyze_button.disabled = false;
+            analyze_button.classList.remove("fullfilled")
+
+            analyze_button.innerHTML = "ANALIZZA"
+
             upload_button.classList.add("fullfilled");
             upload_button.innerHTML = "FILE CARICATI";
         });
@@ -66,6 +73,7 @@ async function uploadFile(file_data) {
 upload_button.onclick = () => {
     let files = data.getAll("image")
     analyze_button.classList.remove("fullfilled")
+    upload_button.disabled = true;
 
     files.forEach(file => {
         uploadFile(file)
@@ -77,12 +85,13 @@ analyze_button.onclick = async () => {
     analyze_button.innerHTML = "STO ANALIZZANDO..."
 
     try {
-        const imageData = await fetch(`/analyze?id=${SESSION_ID}`, {
+        await fetch(`/analyze?id=${SESSION_ID}`, {
             method: "GET"
         }).then(_ => {
             console.log("listato");
-            analyze_button.classList.add("fullfilled")
+            analyze_button.classList.add("fullfilled");
             analyze_button.innerHTML = "FILE ANALIZZATI";
+            analyze_button.disabled = true;
 
             listDone()
 

@@ -22,81 +22,64 @@ nav {
     background: linear-gradient(135deg, var(--dark-lp-color) 38%, var(--ligth-lp-color) 100%);
     color: #fff;
     font-size: 1.4em;
+    z-index: 10;
 }
 
 #container {
     position: relative;
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
     width: 80%;
     margin-left: 10%;
     border-bottom: 2px solid black;
-    margin-top: 100px;
-    padding: 50px;
+    margin-top: 130px;
+    padding-bottom: 50px;
 }
 
-h4 {
+#container * {
+    font-size: 1.2em;
     display: flex;
+    justify-content: center;
     align-items: center;
-    height: 80%;
-    margin-left: 50px;
+    width: 300px;
+    height: 300px;
+    transition: .1s ease-in;
+    border: 2px solid var(--ligth-lp-color)
+}
+
+#container *:hover {
+    background-color: #bbb;
+    border-radius: 10px;
+}
+
+button.fullfilled {
+    color: var(--ligth-lp-color);
+    background-color: var(--dark-lp-color);
+}
+
+button:disabled:hover {
+    background-color: #fff;
 }
 
 #uploaded_display {
     position: relative;
     display: flex;
-    flex-direction: column;
     flex-wrap: wrap;
-    margin-left: 5%;
+    width: 80%;
+    margin-left: 10%;
     margin-bottom: 10px;
-    padding-left: 10px;
-    border-left: 2px solid var(--ligth-lp-color);
+    border-bottom: 2px solid black;
+    border-left: 2px solid black;
 }
 
 #uploaded_display * {
-    margin-right: 10px;
-}
-
-#form {
-    display: flex;
-    flex-direction: column;
-}
-
-input[type="file"] {
-    display: none;
-}
-
-label[for="inputtag"] {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 300px;
-    height: 200px;
-    border: 2px solid var(--ligth-lp-color);
-    cursor: pointer;
-}
-
-button {
-    width: 500px;
-    height: 150px;
-    font-size: 1em;
-    height: 50%;
-    background-color: #fff;
-    border: 2px solid var(--ligth-lp-color);
-    transition: .2s linear;
-}
-
-button:hover {
-    background-color: #bbb;
-}
-
-button.fullfilled {
-    color: var(--ligth-lp-color);
-    background-color: var(--dark-lp-color) ;
+    margin-right: 5%;
 }
 
 h3 {
     margin-left: 10%;
+    width: 80%;
 }
 
 #elaborated {

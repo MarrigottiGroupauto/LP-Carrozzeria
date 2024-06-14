@@ -15,17 +15,15 @@
     </nav>
     <div id="container">
         <label for="inputtag" id="">Inserisci qua le autorizzazioni</label>
-        <input multiple id="inputtag" type="file" />
-        <div id="form">
-            <button id="upload">CARICA</button>
-            <button id="analyze" disabled>ANALIZZA</button>
-        </div>
+        <input multiple id="inputtag" type="file" style="display: none;" />
 
+        <button id="upload" disabled="true">CARICA</button>
 
-        <h4>File caricati:</h4>
-        <div id="uploaded_display"></div>
-
+        <button id="analyze" disabled="true">ANALIZZA</button>
     </div>
+
+    <h3>File caricati:</h3>
+    <div id="uploaded_display"></div>
 
     <h3>Pratiche elaborate</h3>
     <div id="elaborated"></div>

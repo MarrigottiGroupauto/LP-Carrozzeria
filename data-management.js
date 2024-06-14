@@ -1,7 +1,6 @@
 const path = require("path");
 const fs = require("fs");
-var Client = require('ftp');
-const { hostname } = require("os");
+const ftp = require("basic-ftp");
 
 exports.cleanData = (data) => {
     cleanedData = data.analyzeResult.documents[0].fields;
@@ -111,17 +110,30 @@ exports.cleanData = (data) => {
     return cleanedData
 }
 
-exports.sendOnFTP = (file_path) => {
+exports.uploadToFTP = async (file_name) => {
+    const client = new ftp.Client();
+    client.ftp.verbose = false;
 
-    var c = new Client({ hostname: "151.0.189.41", user: "iasprogaia", password: "GaIa2020" });
-    c.on('ready', function () {
-        c.put(file_path, path.basename(file_path), function (err) {
-            if (err) throw err;
-            c.end();
+    try {
+        // Replace with your FTP server details
+        await client.access({
+            host: "151.0.189.41",
+            user: "iasprogaia",
+            password: "GaIa2020",
+            secure: false // Set to true if using FTPS
         });
-    });
-    // connect to localhost:21 as anonymous
-    c.connect();
+
+        // Replace with the local file path and the remote path where you want to upload
+        const localFilePath = path.join(__dirname, `output_xml/${file_name}`);
+        const remoteFilePath = `/LEASEPLAN/carrozzeria/import/${file_name}`;
+
+        // Upload the file
+        await client.uploadFrom(localFilePath, remoteFilePath);
+    } catch (err) {
+        console.error(err);
+    }
+
+    client.close();
 }
 
 /**
