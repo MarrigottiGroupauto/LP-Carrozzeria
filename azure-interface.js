@@ -25,6 +25,7 @@ exports.analyzeSingle = (file_name, id) => {
             fs.readFile(filepath, { encoding: 'base64' }, async (err, encodedFile) => {
 
                 if (err) {
+                    console.error(err);
                     throw err;
                 }
 
@@ -47,18 +48,21 @@ exports.analyzeSingle = (file_name, id) => {
                 apimId = keyFetchResponce.headers["apim-request-id"];
                 const data = await makeCall(apimId);
 
-                if (isDone(cleanedData.numero_autorizzazione.content)) { throw new Error("Pratica già esportata") }
 
                 try {
                     let cleanedData = cleanData(data);
+                    if (isDone(cleanedData.numero_autorizzazione.content)) { throw new Error("Pratica già esportata") }
+
                     createXML(cleanedData.numero_autorizzazione.content, cleanedData);
                     resolve()
                 } catch (error) {
+                    console.error(error)
                     reject()
                 }
             });
 
         } catch (error) {
+            console.error(error)
             throw error;
         }
     });
@@ -100,16 +104,21 @@ exports.analyze = (files, id) => {
                         if (err) console.log(err);
                         // sendOnFTP(path.join(__dirname, `archive/${file}`));
                         console.log("chiamata -> fulfillata");
+                        resolve()
                     });
+                }).catch(err => {
+                    console.log("error" + err);
+
+                    fs.rename(path.join(__dirname, `uploads/${id}/${file}`),
+                        path.join(__dirname, `errors/${file}`),
+                        a => { console.log(file + " messo nella cartella 'errore'") }
+                    );
+
+                    reject();
                 });
-                resolve()
 
             } catch (error) {
-                console.log("suca");
-                console.log("error" + error);
-                fs.rename(path.join(__dirname, `uploads/${id}/${file}`), path.join(__dirname, `errors/${file}`), a => { console.log(a) });
 
-                reject()
             }
         });
     });

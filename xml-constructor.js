@@ -62,6 +62,13 @@ exports.createXML = (name, data) => {
 
         listinoStr = ((netto / (100 - sconto)) * 100).toFixed(2).toString();
 
+        if (!ric.prezzo_netto.content) return;
+
+        if (!ric.quantita.content) {
+            ric.quantita.content = '';
+            ric.quantita.valueNumber = 1
+        }
+
         xmlObj.pratiche.pratica.ricambi.ricambio.push({
 
             "@categorico": ric.categorico.content,

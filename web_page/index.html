@@ -14,17 +14,21 @@
         Import autorizzazioni LP-Carrozzeria
     </nav>
     <div id="container">
+        <label for="inputtag" id="">Inserisci qua le autorizzazioni</label>
+        <input multiple id="inputtag" type="file" />
         <div id="form">
-            <input multiple id="inputtag" type="file" />
-            <button id="upload">carica</button>
-            <button id="analyze">analizza</button>
+            <button id="upload">CARICA</button>
+            <button id="analyze" disabled>ANALIZZA</button>
         </div>
 
-        <div id="uploaded_display">
-            <h4>File caricati:</h4>
-        </div>
+
+        <h4>File caricati:</h4>
+        <div id="uploaded_display"></div>
 
     </div>
+
+    <h3>Pratiche elaborate</h3>
+    <div id="elaborated"></div>
 
     <script src="/page/script.js"></script>
 

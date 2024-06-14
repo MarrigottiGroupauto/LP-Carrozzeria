@@ -6,13 +6,16 @@ const fs = require("fs")
 const port = 3000;
 
 const { analyze } = require("./azure-interface.js");
+const { listDone } = require('./data-management.js');
 
 app.use(express.json());
 
+/** -------- GET PAGES ------- */
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "web_page/index.html"));
 });
 
+/** -------- POST APIS ------- */
 app.post("/upload", async (req, res) => {
 
     if (!req.query.id) res.status(400).send("inserisci il codice");
@@ -42,8 +45,11 @@ app.post("/upload", async (req, res) => {
             }
         );
     });
+
+    res.sendStatus(202)
 });
 
+/** -------- GET DATA FETCHER ------- */
 app.get('/analyze', (req, res) => {
     if (!req.query.id) res.status(400).send("inserisci il codice");
     id = req.query.id;
@@ -51,14 +57,19 @@ app.get('/analyze', (req, res) => {
     console.log("chiamata iniziata da " + id);
 
     fs.readdir(path.join(__dirname, `uploads/${id}/`), (err, files) => {
-        if (err) console.err(err);
+        if (err) console.error(err);
         analyze(files, id).then(a => {
             fs.rmdir(path.join(__dirname, `uploads/${id}/`), _ => console.log(`rimosso ${id}`));
+            res.sendStatus("202");
         });
     });
 
-    res.redirect("xmls");
 
+});
+
+app.get('/elaborated-aut', (req, res) => {
+    let toSend = listDone();
+    res.send(toSend);
 });
 
 app.use('/page', express.static('web_page'));

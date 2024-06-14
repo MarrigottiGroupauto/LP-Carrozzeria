@@ -3,9 +3,30 @@ const upload_button = document.getElementById("upload")
 const analyze_button = document.getElementById("analyze")
 inputButton.addEventListener("change", async (e) => await updateFile(e));
 
-// id from 1 to 2000
+// id from 1 to 2000000
 const SESSION_ID = Math.floor(Math.random() * 200000) + 1;
 console.log(SESSION_ID);
+
+function listDone() {
+    elaborated.innerHTML = ""
+
+    fetch('/elaborated-aut', { method: 'GET' }).then(async res => {
+        let data = await res.json();
+
+        data.forEach(name => {
+
+            if (uploaded_display.innerHTML.includes(name)) {
+                elaborated.innerHTML += `<h6>${name}</h6>`;
+                return;
+            }
+
+            elaborated.innerHTML += `<p>${name}</p>`;
+        })
+
+    });
+}
+
+listDone();
 
 let data = null;
 async function updateFile(e) {
@@ -14,6 +35,8 @@ async function updateFile(e) {
     const formData = new FormData();
     Object.keys(files).forEach(i => {
         formData.append(`image`, files[i]);
+        uploaded_display.innerHTML +=
+            `<p> ${files[i].name}</p>`
     });
 
     data = formData;
@@ -22,15 +45,18 @@ async function updateFile(e) {
 async function uploadFile(file_data) {
 
     let file_name = file_data.name;
-    console.log("d<asd");
 
     try {
-        const imageData = await fetch(`/upload?name=${file_name}&id=${SESSION_ID}`, {
+        await fetch(`/upload?name=${file_name}&id=${SESSION_ID}`, {
             method: "POST",
             headers: {
                 "Content-Type": "multipart/form-data",
             },
             body: file_data,
+        }).then(_ => {
+            analyze_button.disabled = false;
+            upload_button.classList.add("fullfilled");
+            upload_button.innerHTML = "FILE CARICATI";
         });
     } catch (err) {
         console.log(err);
@@ -38,20 +64,28 @@ async function uploadFile(file_data) {
 }
 
 upload_button.onclick = () => {
-    uploaded_display.innerHTML = '<h4>File caricati </h4>'
     let files = data.getAll("image")
+    analyze_button.classList.remove("fullfilled")
 
     files.forEach(file => {
         uploadFile(file)
-        uploaded_display.innerHTML +=
-            `<p> ${file.name}</p>`
     })
 };
 
 analyze_button.onclick = async () => {
+
+    analyze_button.innerHTML = "STO ANALIZZANDO..."
+
     try {
         const imageData = await fetch(`/analyze?id=${SESSION_ID}`, {
             method: "GET"
+        }).then(_ => {
+            console.log("listato");
+            analyze_button.classList.add("fullfilled")
+            analyze_button.innerHTML = "FILE ANALIZZATI";
+
+            listDone()
+
         });
     } catch (err) {
         console.log(err);
