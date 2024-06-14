@@ -1,5 +1,5 @@
 node_modules
-archive
-output_xml
-errors
-uploads
+archive/*
+output_xml/*
+errors/*
+uploads/*
