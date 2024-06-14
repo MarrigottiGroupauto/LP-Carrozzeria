@@ -2,7 +2,7 @@ const path = require("path")
 const fs = require("fs")
 const axios = require('axios');
 
-const { cleanData, sendOnFTP } = require("./data-management");
+const { cleanData, sendOnFTP, isDone } = require("./data-management");
 const { createXML } = require("./xml-constructor")
 
 const key = "b1af733907eb45a3a9bf606d7834a5dd";
@@ -46,6 +46,8 @@ exports.analyzeSingle = (file_name, id) => {
 
                 apimId = keyFetchResponce.headers["apim-request-id"];
                 const data = await makeCall(apimId);
+
+                if (isDone(cleanedData.numero_autorizzazione.content)) { throw new Error("Pratica già esportata") }
 
                 try {
                     let cleanedData = cleanData(data);

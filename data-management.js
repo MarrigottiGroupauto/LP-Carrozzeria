@@ -123,3 +123,17 @@ exports.sendOnFTP = (file_path) => {
     // connect to localhost:21 as anonymous
     c.connect();
 }
+
+/**
+ * Checks if a practice is already been elaborated, if so returns true, false otherwise
+ * 
+ * @param {string} invoice_number 
+ * @returns boolean
+ */
+exports.isDone = (invoice_number) => {
+    fs.readdir("output_xmls", (err, files) => {
+        for (file_name in files) if (file_name === invoice_number + ".xml") return true
+    });
+
+    return false;
+}
