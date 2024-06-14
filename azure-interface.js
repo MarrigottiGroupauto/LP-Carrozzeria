@@ -7,7 +7,7 @@ const { createXML } = require("./xml-constructor")
 
 const key = "b1af733907eb45a3a9bf606d7834a5dd";
 const endpoint = "https://westeurope.api.cognitive.microsoft.com/";
-const modelId = "LP-CARR-AUT_Neural"
+const modelId = "LP-CAR-AUT_Neural_V3"
 
 /**
  * Manages the requests and on fullfill it creates the XML file 
@@ -88,21 +88,28 @@ async function makeCall(apimId) {
 
 exports.analyze = (files, id) => {
 
+    return new Promise((resolve, reject) => {
 
-    files.forEach(file => {
+        files.forEach(file => {
 
-        try {
-            exports.analyzeSingle(file, id).then(_ => {
-                fs.rename(path.join(__dirname, `uploads/${id}/${file}`), path.join(__dirname, `archive/${file}`), err => {
-                    if (err) console.log(err);
-                    // sendOnFTP(path.join(__dirname, `archive/${file}`));
-                    console.log("chiamata -> fulfillata");
+            try {
+                exports.analyzeSingle(file, id).then(_ => {
+                    fs.rename(path.join(__dirname, `uploads/${id}/${file}`), path.join(__dirname, `archive/${file}`), err => {
+                        if (err) console.log(err);
+                        // sendOnFTP(path.join(__dirname, `archive/${file}`));
+                        console.log("chiamata -> fulfillata");
+                    });
                 });
-            }).catch(err => { console.log(err); });
-        } catch (error) {
-            console.log("suca");
-            console.log("error" + error);
-            fs.rename(path.join(__dirname, `uploads/${id}/${file}`), path.join(__dirname, `errors/${file}`), a => { console.log(a) });
-        }
+                resolve()
+
+            } catch (error) {
+                console.log("suca");
+                console.log("error" + error);
+                fs.rename(path.join(__dirname, `uploads/${id}/${file}`), path.join(__dirname, `errors/${file}`), a => { console.log(a) });
+
+                reject()
+            }
+        });
     });
+
 }

@@ -52,10 +52,10 @@ app.get('/analyze', (req, res) => {
 
     fs.readdir(path.join(__dirname, `uploads/${id}/`), (err, files) => {
         if (err) console.err(err);
-        analyze(files, id);
+        analyze(files, id).then(a => {
+            fs.rmdir(path.join(__dirname, `uploads/${id}/`), _ => console.log(`rimosso ${id}`));
+        });
     });
-
-    fs.rmdir(path.join(__dirname, `uploads/${id}/`), a => console.log);
 
     res.redirect("xmls");
 
