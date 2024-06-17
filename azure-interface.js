@@ -49,7 +49,6 @@ exports.analyzeSingle = async (file_name, id) => {
 
                 try {
                     let cleanedData = cleanData(data);
-
                     if (isDone(cleanedData.numero_autorizzazione.content)) { throw new Error("Pratica già esportata") }
 
                     createXML(cleanedData.numero_autorizzazione.content, cleanedData);
@@ -94,12 +93,15 @@ async function makeCall(apimId) {
 exports.analyze = async (files, id, done) => {
 
     if (!done) done = [];
-
     if (files.length === 0) return done;
 
     done = done.concat(`${await this.analyzeSingle(files[0], id)}.xml`);
-
-    fs.rename(path.join(__dirname, `uploads/${id}/${files[0]}`), path.join(__dirname, `archive/${files[0]}`, err => { if (err) { console.log(err) } }))
+    fs.rename(path.join(__dirname, `uploads/${id}/${files[0]}`), path.join(__dirname, `archive/${files[0]}`, err => {
+        if (err) {
+            console.log(err)
+        }
+    }
+    ))
 
     files = files.slice(1)
     return this.analyze(files, id, done);
