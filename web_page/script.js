@@ -3,13 +3,12 @@ const upload_button = document.getElementById("upload")
 const analyze_button = document.getElementById("analyze")
 inputButton.addEventListener("change", async (e) => await updateFile(e));
 
-var done = [];
 
 // id from 1 to 2000000
 const SESSION_ID = Math.floor(Math.random() * 200000) + 1;
 console.log(SESSION_ID);
 
-function listDone() {
+function listDone(done) {
     elaborated.innerHTML = ""
 
     fetch('/elaborated-aut', { method: 'GET' }).then(async res => {
@@ -17,8 +16,8 @@ function listDone() {
 
         data.forEach(name => {
 
-            if (done.includes(name)) {
-                elaborated.innerHTML += `<h6>${name}</h6>`;
+            if (done.includes(`${name}`)) {
+                elaborated.innerHTML += `<b>${name}</b>`;
                 return;
             }
 
@@ -28,7 +27,7 @@ function listDone() {
     });
 }
 
-listDone();
+listDone([]);
 
 let data = null;
 async function updateFile(e) {
@@ -93,14 +92,17 @@ analyze_button.onclick = async () => {
     analyze_button.innerHTML = "STO ANALIZZANDO..."
     analyze_button.classList.add("working");
 
-    await fetch(`/analyze?id=${SESSION_ID}`, {
+    let a = await fetch(`/analyze?id=${SESSION_ID}`, {
         method: "GET"
     });
+    res = await a.json()
+
+    console.log(res);
 
     analyze_button.classList.remove("working");
     analyze_button.classList.add("fulfilled");
     analyze_button.innerHTML = "FILE ANALIZZATI";
 
-    listDone();
+    listDone(res);
 
 }

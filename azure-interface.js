@@ -14,6 +14,7 @@ const modelId = "LP-CAR-AUT_Neural_V3"
  * regarding the requested file
  *  
  * @param {string} file_name the name of the file that has to be analized
+ * @param {string} id        the id session
  */
 exports.analyzeSingle = async (file_name, id) => {
 
@@ -21,12 +22,10 @@ exports.analyzeSingle = async (file_name, id) => {
 
         filepath = path.join(__dirname, `uploads/${id}/${file_name}`)
         try {
-
             fs.readFile(filepath, { encoding: 'base64' }, async (err, encodedFile) => {
-
                 if (err) {
                     console.error(err);
-                    throw err;
+                    return;
                 }
 
                 /**
@@ -50,28 +49,26 @@ exports.analyzeSingle = async (file_name, id) => {
 
                 try {
                     let cleanedData = cleanData(data);
+
                     if (isDone(cleanedData.numero_autorizzazione.content)) { throw new Error("Pratica già esportata") }
 
                     createXML(cleanedData.numero_autorizzazione.content, cleanedData);
-                    // uploadToFTP(`${cleanedData.numero_autorizzazione.content}.xml`);
+                    uploadToFTP(`${cleanedData.numero_autorizzazione.content}.xml`);
 
                     resolve(cleanedData.numero_autorizzazione.content);
                 } catch (error) {
-                    console.error(error)
+                    console.error(error);
                 }
             });
 
         } catch (error) {
-            console.error(error)
+            console.error(error);
             reject()
         }
-
     });
-
 }
 
 /**
- * 
  * Makes the call to Azure Docuement AI using the apimID fetched from previeus call
  * than returns the responce i form of JSON object
  * 
@@ -94,30 +91,16 @@ async function makeCall(apimId) {
     });
 }
 
-exports.analyze = async (files, id) => {
+exports.analyze = async (files, id, done) => {
 
-    return new Promise((resolve, reject) => {
+    if (!done) done = [];
 
-        let file = files.pop();
+    if (files.length === 0) return done;
 
-        console.log(`Analizzando ${file}`);
+    done = done.concat(`${await this.analyzeSingle(files[0], id)}.xml`);
 
-        exports.analyzeSingle(file, id).then(data => {
-            fs.rename(path.join(__dirname, `uploads/${id}/${file}`), path.join(__dirname, `archive/${file}`), async err => {
-                if (err) console.log(err);
+    fs.rename(path.join(__dirname, `uploads/${id}/${files[0]}`), path.join(__dirname, `archive/${files[0]}`))
 
-                if (files.length == 0) { resolve(); return; }
-                exports.analyze(files, id);
-            });
-        }).catch(err => {
-            console.log("error" + err);
-            fs.rename(path.join(__dirname, `uploads/${id}/${file}`),
-                path.join(__dirname, `errors/${file}`),
-                a => { console.log(file + " messo nella cartella 'errore'") }
-            );
-
-            reject()
-        });
-
-    });
+    files = files.slice(1)
+    return this.analyze(files, id, done);
 }

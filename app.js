@@ -3,7 +3,7 @@ const app = express();
 
 const path = require("path");
 const fs = require("fs")
-const port = 3000;
+const port = 80;
 
 const { analyze } = require("./azure-interface.js");
 const { listDone } = require('./data-management.js');
@@ -54,18 +54,18 @@ app.get('/analyze', (req, res) => {
     if (!req.query.id) res.status(400).send("inserisci il codice");
     id = req.query.id;
 
-
     console.log("chiamata iniziata da " + id);
 
     fs.readdir(path.join(__dirname, `uploads/${id}/`), async (err, files) => {
         if (err) console.error(err);
 
-        analyze(files, id,).then(_ => {
-            console.log("finito di analizzare");
-            fs.rmdir(path.join(__dirname, `uploads/${id}/`), _ => console.log(`rimosso  ${id}`));
-            res.sendStatus(202);
+        analyze(files, id).then(passed_auts => {
+            fs.rmdir(`uploads/${id}`, _ =>{console.log(`rimosso ${id}`)})
+            
+            console.log("import completato");
+            
+            res.status(202).send(passed_auts);
         });
-
     });
 });
 

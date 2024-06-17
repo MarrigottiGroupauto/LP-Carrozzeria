@@ -43,6 +43,7 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
     width: 300px;
     height: 150px;
     transition: .1s ease-in;
