@@ -96,12 +96,12 @@ exports.analyze = async (files, id, done) => {
     if (files.length === 0) return done;
 
     done = done.concat(`${await this.analyzeSingle(files[0], id)}.xml`);
-    fs.rename(path.join(__dirname, `uploads/${id}/${files[0]}`), path.join(__dirname, `archive/${files[0]}`, err => {
+    fs.rename(path.join(__dirname, `uploads/${id}/${files[0]}`), path.join(__dirname, `archive/${files[0]}`), err => {
         if (err) {
             console.log(err)
         }
     }
-    ))
+    )
 
     files = files.slice(1)
     return this.analyze(files, id, done);
