@@ -3,6 +3,8 @@ const upload_button = document.getElementById("upload")
 const analyze_button = document.getElementById("analyze")
 inputButton.addEventListener("change", async (e) => await updateFile(e));
 
+var done = [];
+
 // id from 1 to 2000000
 const SESSION_ID = Math.floor(Math.random() * 200000) + 1;
 console.log(SESSION_ID);
@@ -15,7 +17,7 @@ function listDone() {
 
         data.forEach(name => {
 
-            if (uploaded_display.innerHTML.includes(name)) {
+            if (done.includes(name)) {
                 elaborated.innerHTML += `<h6>${name}</h6>`;
                 return;
             }
@@ -40,8 +42,13 @@ async function updateFile(e) {
     });
 
     upload_button.innerHTML = "CARICA";
-    upload_button.classList.remove("fullfilled");
+    upload_button.classList.remove("fulfilled");
     upload_button.disabled = false;
+
+    analyze_button.innerHTML = "ANALIZZA"
+    analyze_button.classList.remove("fulfilled")
+    analyze_button.disabled = true;
+
     data = formData;
 }
 
@@ -58,11 +65,11 @@ async function uploadFile(file_data) {
             body: file_data,
         }).then(_ => {
             analyze_button.disabled = false;
-            analyze_button.classList.remove("fullfilled")
+            analyze_button.classList.remove("fulfilled")
 
             analyze_button.innerHTML = "ANALIZZA"
 
-            upload_button.classList.add("fullfilled");
+            upload_button.classList.add("fulfilled");
             upload_button.innerHTML = "FILE CARICATI";
         });
     } catch (err) {
@@ -72,7 +79,7 @@ async function uploadFile(file_data) {
 
 upload_button.onclick = () => {
     let files = data.getAll("image")
-    analyze_button.classList.remove("fullfilled")
+    analyze_button.classList.remove("fulfilled")
     upload_button.disabled = true;
 
     files.forEach(file => {
@@ -82,21 +89,18 @@ upload_button.onclick = () => {
 
 analyze_button.onclick = async () => {
 
+    analyze_button.disabled = true;
     analyze_button.innerHTML = "STO ANALIZZANDO..."
+    analyze_button.classList.add("working");
 
-    try {
-        await fetch(`/analyze?id=${SESSION_ID}`, {
-            method: "GET"
-        }).then(_ => {
-            console.log("listato");
-            analyze_button.classList.add("fullfilled");
-            analyze_button.innerHTML = "FILE ANALIZZATI";
-            analyze_button.disabled = true;
+    await fetch(`/analyze?id=${SESSION_ID}`, {
+        method: "GET"
+    });
 
-            listDone()
+    analyze_button.classList.remove("working");
+    analyze_button.classList.add("fulfilled");
+    analyze_button.innerHTML = "FILE ANALIZZATI";
 
-        });
-    } catch (err) {
-        console.log(err);
-    }
+    listDone();
+
 }

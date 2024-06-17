@@ -3,6 +3,7 @@
 :root {
     --dark-lp-color: #ed3f1a;
     --ligth-lp-color: #ec930f;
+    --fulfilled-color: #376837;
 }
 
 body {
@@ -43,23 +44,24 @@ nav {
     justify-content: center;
     align-items: center;
     width: 300px;
-    height: 300px;
+    height: 150px;
     transition: .1s ease-in;
     border: 2px solid var(--ligth-lp-color)
 }
 
-#container *:hover {
+#container *:not(:disabled):hover {
     background-color: #bbb;
-    border-radius: 10px;
 }
 
-button.fullfilled {
+.fulfilled {
     color: var(--ligth-lp-color);
-    background-color: var(--dark-lp-color);
+    background-color: var(--fulfilled-color);
+    border: 2px solid green;
 }
 
-button:disabled:hover {
-    background-color: #fff;
+.working {
+    background-color: var(--ligth-lp-color);
+    border: 2px solid var(--dark-lp-color)
 }
 
 #uploaded_display {
@@ -70,16 +72,23 @@ button:disabled:hover {
     margin-left: 10%;
     margin-bottom: 10px;
     border-bottom: 2px solid black;
-    border-left: 2px solid black;
+    border-left: 2px solid var(--dark-lp-color);
 }
 
 #uploaded_display * {
     margin-right: 5%;
+    padding-left: 20px;
 }
 
 h3 {
     margin-left: 10%;
     width: 80%;
+}
+
+h5 {
+    width: 80%;
+    margin-left: 10%;
+    text-align: center;
 }
 
 #elaborated {
@@ -92,6 +101,7 @@ h3 {
     margin-left: 10%;
     padding-left: 20px;
     border-left: 2px solid var(--dark-lp-color);
+    border-bottom: 2px solid black;
 }
 
 #elaborated p {

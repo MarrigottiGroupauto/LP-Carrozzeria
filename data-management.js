@@ -150,7 +150,6 @@ exports.isDone = (invoice_number) => {
     return false;
 }
 
-exports.listDone = () => {
-    let toReturn = fs.readdirSync(path.join(__dirname, "output_xml"));
-    return toReturn;
+exports.listDone = async () => {
+    return await fs.readdirSync(path.join(__dirname, "output_xml"));
 }

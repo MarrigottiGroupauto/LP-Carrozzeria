@@ -10,12 +10,12 @@ const endpoint = "https://westeurope.api.cognitive.microsoft.com/";
 const modelId = "LP-CAR-AUT_Neural_V3"
 
 /**
- * Manages the requests and on fullfill it creates the XML file 
+ * Manages the requests and on fulfill it creates the XML file 
  * regarding the requested file
  *  
  * @param {string} file_name the name of the file that has to be analized
  */
-exports.analyzeSingle = (file_name, id) => {
+exports.analyzeSingle = async (file_name, id) => {
 
     return new Promise((resolve, reject) => {
 
@@ -45,29 +45,29 @@ exports.analyzeSingle = (file_name, id) => {
                         }
                     });
 
-                apimId = keyFetchResponce.headers["apim-request-id"];
+                let apimId = keyFetchResponce.headers["apim-request-id"];
                 const data = await makeCall(apimId);
-
 
                 try {
                     let cleanedData = cleanData(data);
                     if (isDone(cleanedData.numero_autorizzazione.content)) { throw new Error("Pratica già esportata") }
 
                     createXML(cleanedData.numero_autorizzazione.content, cleanedData);
-                    uploadToFTP(`${cleanedData.numero_autorizzazione.content}.xml`);
+                    // uploadToFTP(`${cleanedData.numero_autorizzazione.content}.xml`);
 
-                    resolve()
+                    resolve(cleanedData.numero_autorizzazione.content);
                 } catch (error) {
                     console.error(error)
-                    reject()
                 }
             });
 
         } catch (error) {
             console.error(error)
-            throw error;
+            reject()
         }
+
     });
+
 }
 
 /**
@@ -83,8 +83,8 @@ async function makeCall(apimId) {
     const response = await axios.get(`${endpoint}documentintelligence/documentModels/${modelId}/analyzeResults/${apimId}?api-version=2024-02-29-preview`, { headers: { 'Ocp-Apim-Subscription-Key': key } });
     let data = response.data;
 
-    if (data.status == "succeeded") return data;
     console.log(`chiamata -> ${data.status}`);
+    if (data.status == "succeeded") return data;
 
     return new Promise((resolve) => {
         setTimeout(async () => {
@@ -94,32 +94,30 @@ async function makeCall(apimId) {
     });
 }
 
-exports.analyze = (files, id) => {
+exports.analyze = async (files, id) => {
 
     return new Promise((resolve, reject) => {
 
-        if (files.length == 0) { resolve(); return; }
-
         let file = files.pop();
 
-        exports.analyzeSingle(file, id).then(_ => {
-            fs.rename(path.join(__dirname, `uploads/${id}/${file}`), path.join(__dirname, `archive/${file}`), err => {
-                if (err) console.log(err);
-                console.log("chiamata -> fulfillata");
+        console.log(`Analizzando ${file}`);
 
-                return exports.analyze(files, id);
+        exports.analyzeSingle(file, id).then(data => {
+            fs.rename(path.join(__dirname, `uploads/${id}/${file}`), path.join(__dirname, `archive/${file}`), async err => {
+                if (err) console.log(err);
+
+                if (files.length == 0) { resolve(); return; }
+                exports.analyze(files, id);
             });
         }).catch(err => {
             console.log("error" + err);
-
             fs.rename(path.join(__dirname, `uploads/${id}/${file}`),
                 path.join(__dirname, `errors/${file}`),
                 a => { console.log(file + " messo nella cartella 'errore'") }
             );
 
-            reject();
+            reject()
         });
 
     });
-
 }

@@ -54,20 +54,23 @@ app.get('/analyze', (req, res) => {
     if (!req.query.id) res.status(400).send("inserisci il codice");
     id = req.query.id;
 
+
     console.log("chiamata iniziata da " + id);
 
-    fs.readdir(path.join(__dirname, `uploads/${id}/`), (err, files) => {
+    fs.readdir(path.join(__dirname, `uploads/${id}/`), async (err, files) => {
         if (err) console.error(err);
-        analyze(files, id).then(a => {
-            fs.rmdir(path.join(__dirname, `uploads/${id}/`), _ => console.log(`rimosso ${id}`));
-            res.sendStatus("202");
+
+        analyze(files, id,).then(_ => {
+            console.log("finito di analizzare");
+            fs.rmdir(path.join(__dirname, `uploads/${id}/`), _ => console.log(`rimosso  ${id}`));
+            res.sendStatus(202);
         });
+
     });
 });
 
-app.get('/elaborated-aut', (req, res) => {
-    let toSend = listDone();
-    res.send(toSend);
+app.get('/elaborated-aut', (_, res) => {
+    listDone().then(data => res.send(data));
 });
 
 app.use('/page', express.static('web_page'));
