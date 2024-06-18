@@ -17,7 +17,7 @@ function listDone(done) {
         data.forEach(name => {
 
             if (done.includes(`${name}`)) {
-                elaborated.innerHTML += `<b>${name}</b>`;
+                elaborated.innerHTML += `<p><b>${name}</b></p>`;
                 return;
             }
 
