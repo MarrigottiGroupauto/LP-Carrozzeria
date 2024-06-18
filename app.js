@@ -3,7 +3,7 @@ const app = express();
 
 const path = require("path");
 const fs = require("fs")
-const port = 3456;
+const port = 3000;
 
 const { analyze } = require("./azure-interface.js");
 const { listDone } = require('./data-management.js');
