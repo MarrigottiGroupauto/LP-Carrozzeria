@@ -73,9 +73,9 @@ app.get('/elaborated-aut', (_, res) => {
     listDone().then(data => res.send(data));
 });
 
-app.use('/page', express.static('web_page'));
-app.use('/xmls', express.static('output_xml'));
+app.use('/page', express.static(path.join(__dirname, 'web_page')));
+app.use('/xmls', express.static(path.join(__dirname, 'output_xml')));
 
 app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+    console.log(`Server is running on ${port}`);
 });
