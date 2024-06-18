@@ -46,6 +46,7 @@ async function updateFile(e) {
 
     analyze_button.innerHTML = "ANALIZZA"
     analyze_button.classList.remove("fulfilled")
+    analyze_button.classList.remove("working")
     analyze_button.disabled = true;
 
     data = formData;

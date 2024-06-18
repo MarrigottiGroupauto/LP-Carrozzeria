@@ -10,6 +10,8 @@ exports.cleanData = (data) => {
         delete cleanedData[obj].confidence;
     }
 
+    if (!cleanedData.manodopera_carrozzeria_prezzo) { throw Error("Errore nel parsing") }
+
     delete cleanedData.ricambi.type;
 
     for (ric in cleanedData.ricambi.valueArray) {

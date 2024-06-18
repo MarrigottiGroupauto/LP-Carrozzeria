@@ -60,10 +60,10 @@ app.get('/analyze', (req, res) => {
         if (err) console.error(err);
 
         analyze(files, id).then(passed_auts => {
-            fs.rmdir(`uploads/${id}`, _ =>{console.log(`rimosso ${id}`)})
-            
+            fs.rmdir(`uploads/${id}`, _ => { console.log(`rimosso ${id}`) })
+
             console.log("import completato");
-            
+
             res.status(202).send(passed_auts);
         });
     });
