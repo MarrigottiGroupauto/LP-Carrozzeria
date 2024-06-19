@@ -26,6 +26,21 @@ nav {
     z-index: 10;
 }
 
+#back{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 10px;
+    left: 10px;
+    background-color: white;
+    color: var(--dark-lp-color);
+    height: 60px;
+    width: 160px;
+    z-index: 11;
+    border-radius: 20px;
+}
+
 #container {
     position: relative;
     display: flex;
